@@ -1,0 +1,99 @@
+\documentclass[sigplan]{acmart}
+
+\settopmatter{printacmref=false} % Removes citation information below abstract
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+\pagestyle{plain} % removes running headers
+
+\usepackage[english]{babel}
+\usepackage{url}
+
+\begin{document}
+
+\title{Abstractive Scientific Text Summarization using Generative Adversarial Networks}
+
+\author{Maria Dobko}
+\affiliation{%
+  \institution{Ukrainian Catholic University\\
+  Faculty of Applied Sciences}
+  \city{Lviv}
+  \state{Ukraine}
+}
+\email{dobko_m@ucu.edu.ua}
+
+\author{Oleksandr Zaytsev}
+\affiliation{%
+  \institution{Ukrainian Catholic University\\
+  Faculty of Applied Sciences}
+  \city{Lviv}
+  \state{Ukraine}
+}
+\email{oleks@ucu.edu.ua}
+
+\author{Yuriy Pryima}
+\affiliation{%
+  \institution{Ukrainian Catholic University\\
+  Faculty of Applied Sciences}
+  \city{Lviv}
+  \state{Ukraine}
+}
+\email{y.pryima@ucu.edu.ua }
+
+\begin{abstract}
+The aim of this research is to test whether it is possible to use generative adversarial networks to solve the task of abstract text summarization. Achieved results will help better understand how neural networks can be used for NLP. Furthermore, using the dataset of scientific papers collected from arXiv and other similar resources we can test how good our model works in summarizing text. For training we will create our own corpus from scientific papers, as labels we will choose ?Abstract? part from each of them. 
+\end{abstract}
+
+\keywords{text summarization, NLP, GAN, reinforcement learning}
+
+\maketitle
+
+\section{Introduction}
+Recent studies have shown that neural networks can be used in solving NLP problems. However, models that were mostly considered for this task were Convolutional Neural Networks and Recurrent Neural Networks. Only during the last years papers about experiments of using GAN?s in NLP were published. For example, authors of \cite{li-cohn-17} use generative approach for sentiment analysis, in \cite{fedus-18} a new architecture of GAN is proposed for filling the gaps in texts, some experiments using generative models for text summarization were shortly described in \cite{liu-17}. However, this approach has not been used for abstract text summarization of scientific papers, yet.
+
+\section{Problem statement}
+
+The main issue of using generative adversarial networks in Natural Language Processing is connected with the fact that text data is discrete. Why does it make a difference ?
+Generative Adversarial Network consists of two models: first is generative, which tries to fool with synthetic data the second model - discriminative, that distinguishes the difference between real and generated data. As it is stated in \cite{fedus-18}, GANs have had a lot of success in producing more realistic images than other approaches but they have only seen limited use for text sequences. 
+GAN?s are widely used on images, where generating a new sample requires only to change the density of specific pixels. While working with text it becomes more difficult to tell the generator about how to change the input, thus, according to \cite{liu-17} it is a good choice to build the generator as an agent of reinforcement learning, which takes the raw text as input and predicts the abstractive summarization.
+
+\subsection{Research Question/Hypothesis}
+The main hypothesis is whether Generative Adversarial Network can work better than other methods in the presented task: abstract text summarization of scientific paper. 
+
+\section{Background and significance}
+
+Until very recently it was considered impossible to apply GANs to the problems of NLP\footnote{Ian Goodfellow's answer to the related question on Reddit: \url{https://www.reddit.com/r/MachineLearning/comments/40ldq6/generative_adversarial_networks_for_text/}}. 
+
+Allahyari et al.\cite{allahyari-17} make a survey of the most successful text summarization techniques as of July 2017.
+
+\section{Research design and methods}
+
+\subsection{Overview}
+
+\subsection{Population and Study Sample}
+
+We will write a script that will download a given number of papers from arXiv. 
+
+\subsection{Sample Size and Selection of Sample}
+\subsection{Data collection}
+
+arXiv provides a RESTful API\footnote{\url{https://arxiv.org/help/api/index}} that allows us to search for papers from a specific category and inside a specific time range. The results are returned as an HTML page which can be easily parsed. By making requests to arXiv and parsing the response we acquire all the necessary information about the paper (paper id, title, authors, date, subjects, and abstract)\footnote{Our first attempts of data scrapping from arXiv:\\ \url{https://github.com/olekscode/arXiv-parsing}}. Then we use the collected list of paper ids to download the PDF files, we extract text from those files and store it in a table together with other variables acquired from arXiv.
+
+\subsection{Timeframes}
+
+\begin{center}
+\begin{tabular}{ r | l }
+ February 28 & deadline for data collection \\ 
+ March 7 & deadline for data analysis and corpus training \\  
+ March 21 & trying different architectures, comparing results \\
+ April 30 & final  paper submission
+\end{tabular}
+\end{center}
+
+\section{Strength and weakness of the study}
+As our main strength we see a possibility to test different GAN architectures in order to find the one, that will work good for text summarization. As long as, this topic is pretty hot and in the same time poorly studied, we have a freedom to choose which dataset to use for training, thus it is also a part of research. 
+However, there are high risks that this approach may not give good results at all, because there are still lots of issues about  usage of neural networks with language data. The other possible weakness is a difficulty to compare the results with other papers, as there are not a lot of researches concerning this or relative subject. 
+We are also currently looking for supervisors who might be interested in the following topic, so we could have a mentorship during the research.
+
+\bibliographystyle{alpha}
+\bibliography{proposal}
+
+\end{document}
