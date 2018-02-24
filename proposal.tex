@@ -39,9 +39,9 @@
 \email{y.pryima@ucu.edu.ua }
 
 \begin{abstract}
-Generative adversarial networks (GAN) have shown a lot of success in image generation. However until recent years they were considered inapplicable to the discrete problems of natural language processing (NLP). The latest papers introduce novel approaches to overcoming these issues by combining GANs with reinforcement learning (RL) models and lay the foundation for the whole new field of research of adversarial language processing.
+Generative adversarial networks (GAN) have shown a lot of success in image generation. However until recent years they were considered inapplicable to the discrete problems of natural language processing (NLP). The latest papers introduce novel approaches to overcoming these issues by combining GANs with reinforcement learning models and lay the foundation for the whole new field of research of adversarial language processing.
 
-In our research we will apply GANs to the task of scientific text summarization and try to improve the results of recent state-of-the-art approaches.
+In our research we will apply GANs to the task of scientific text summarization. We will take the whole text of a paper and produce a shorter text that contains a concise summary of the research. Sophisticated structure of scientific texts and the availability of many additional sources of contextual information (such as the referenced papers and the topics of other papers written by the authors). We will compare the performance of several discrete GANs that performed well on the similar problems of text generation, and try to improve the results of recent state-of-the-art approaches to scientific text summarization.
 \end{abstract}
 
 \keywords{text summarization, NLP, GAN, reinforcement learning}
@@ -49,7 +49,7 @@ In our research we will apply GANs to the task of scientific text summarization 
 \maketitle
 
 \section{Introduction}
-Recent studies have shown that neural networks can be used in solving NLP problems. However, models that were mostly considered for this task were Convolutional Neural Networks and Recurrent Neural Networks.
+Recent studies have shown that neural networks can be used for solving NLP problems. However, models that were mostly considered for this task were convolutional neural networks and recurrent neural networks.
 
 Applying generative adversarial networks to the problems of NLP is a considered to be a complicated task because GANs are only defined for real-valued data, and all NLP is based on discrete values like words, characters, or bytes.
 
@@ -57,20 +57,15 @@ Applying generative adversarial networks to the problems of NLP is a considered 
 For example, if you output an image with a pixel value of 1.0, you can change that pixel value to 1.0001 on the next step. If you output the word "penguin", you can't change that to "penguin + .001" on the next step, because there is no such word as "penguin + .001". You have to go all the way from "penguin" to "ostrich".\footnote{Ian Goodfellow's answer to the related question on Reddit: \url{https://www.reddit.com/r/MachineLearning/comments/40ldq6/generative_adversarial_networks_for_text/}}
 \end{quote}
 
-However, in their latest paper Fedus, Goodfellow, and Dai\cite{fedus-18} overcome this problem by using Reinforcement Learning (RL) to train the generator while the discriminator is still trained via maximum likelihood and stochastic gradient descent, and use it to fill the gaps in the text.
+However, in their latest paper Fedus, Goodfellow, and Dai\cite{fedus-18} overcome this problem by using reinforcement learning to train the generator while the discriminator is still trained via maximum likelihood and stochastic gradient descent, and use it to fill the gaps in the text.
  
 However, this approach has not been used for abstract text summarization of scientific papers, yet.
 
 \section{Problem statement}
 
-The main issue of using generative adversarial networks in Natural Language Processing is connected with the fact that text data is discrete. Why does it make a difference?
-Generative Adversarial Network consists of two models: first is generative, which tries to fool with synthetic data the second model - discriminative, that distinguishes the difference between real and generated data. As it is stated in \cite{fedus-18}, GANs have had a lot of success in producing more realistic images than other approaches but they have only seen limited use for text sequences. 
-GAN?s are widely used on images, where generating a new sample requires only to change the density of specific pixels. While working with text it becomes more difficult to tell the generator about how to change the input, thus, according to \cite{liu-17} it is a good choice to build the generator as an agent of reinforcement learning, which takes the raw text as input and predicts the abstractive summarization.
+The main hypothesis is that generative adversarial networks with reinforcement learning based generator, when applied to the problem of abstractive scientific text summarization, can provide better results than recent state-of-the-art approaches. 
 
-\subsection{Research Question/Hypothesis}
-The main hypothesis is whether Generative Adversarial Network can work better than other methods in the presented task: abstract text summarization of scientific paper. 
-
-\section{Background and significance}
+\section{Related work}
 
 Allahyari et al.\cite{allahyari-17} make a survey of the most successful text summarization techniques as of July 2017.
 
