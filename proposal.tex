@@ -75,11 +75,11 @@ In their paper \textit{Generative Adversarial Network for Abstractive Text Summa
 
 \section{Research design and methods}
 
-We will write a script for downloading a given number of papers from arXiv. Those papers will be filtered by their category and publication date.
+We will be applying existing discrete GANs to the data collected from arXiv. One of the lates successful models  for scientific text summarization will be selected as our baseline.
 
 \subsection{Data collection}
 
-arXiv provides a RESTful API\footnote{\url{https://arxiv.org/help/api/index}} that allows us to search for papers from a specific category and inside a specific time range. The results are returned as an HTML page which can be easily parsed. By making requests to arXiv and parsing the response we acquire all the necessary information about the paper (paper id, title, authors, date, subjects, and abstract)\footnote{Our first attempts of data scrapping from arXiv:\\ \url{https://github.com/MachineLearningUCU/arXiv-parsing}}. Then we use the collected list of paper ids to download the PDF files, we extract text from those files and store it in a table together with other variables acquired from arXiv.
+arXiv provides a RESTful API\footnote{\url{https://arxiv.org/help/api/index}} that allows us to search for papers from a specific category and inside a specific time range. The results are returned as an HTML page which can be easily parsed. By making requests to arXiv and parsing the response we acquire all necessary information about the paper (id, title, authors, date, subjects, abstract etc.)\footnote{Our first attempts of data scrapping from arXiv:\\ \url{https://github.com/MachineLearningUCU/arXiv-parsing}}. Then we use the collected list of paper ids to download PDF files, extract text from those files and store it in a table together with other variables acquired from arXiv.
 
 \subsection{Timeframes}
 
@@ -98,8 +98,7 @@ arXiv provides a RESTful API\footnote{\url{https://arxiv.org/help/api/index}} th
 \end{itemize}
 
 \section{Strength and weakness of the study}
-GANs have proved to be the most successful when it comes to image generation.
-
+GANs have proved to be the most successful when it comes to generative images, but their application to the problems of the text generation is not well studied. So we expect our research to introduce novel approaches and original ideas that may advance the field of natural language processing.
 However, there are high risks that this approach may not give good results at all, because there are still lots of issues about  usage of neural networks with language data. The other possible weakness is a difficulty to compare the results with other papers, as there are not a lot of researches concerning this or relative subject. 
 We are also currently looking for supervisors who might be interested in the following topic, so we could have a mentorship during the research.
 
