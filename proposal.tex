@@ -39,7 +39,9 @@
 \email{y.pryima@ucu.edu.ua }
 
 \begin{abstract}
-The aim of this research is to test whether it is possible to use generative adversarial networks to solve the task of abstract text summarization. Achieved results will help better understand how neural networks can be used for NLP. Furthermore, using the dataset of scientific papers collected from arXiv and other similar resources we can test how good our model works in summarizing text. For training we will create our own corpus from scientific papers, as labels we will choose ?Abstract? part from each of them. 
+Generative adversarial networks (GAN) have shown a lot of success in image generation. However until recent years they were considered inapplicable to the discrete problems of natural language processing (NLP). The latest papers introduce novel approaches to overcoming these issues by combining GANs with reinforcement learning (RL) models and lay the foundation for the whole new field of research of adversarial language processing.
+
+In our research we will apply GANs to the task of scientific text summarization and try to improve the results of recent state-of-the-art approaches.
 \end{abstract}
 
 \keywords{text summarization, NLP, GAN, reinforcement learning}
@@ -47,11 +49,21 @@ The aim of this research is to test whether it is possible to use generative adv
 \maketitle
 
 \section{Introduction}
-Recent studies have shown that neural networks can be used in solving NLP problems. However, models that were mostly considered for this task were Convolutional Neural Networks and Recurrent Neural Networks. Only during the last years papers about experiments of using GAN?s in NLP were published. For example, authors of \cite{li-cohn-17} use generative approach for sentiment analysis, in \cite{fedus-18} a new architecture of GAN is proposed for filling the gaps in texts, some experiments using generative models for text summarization were shortly described in \cite{liu-17}. However, this approach has not been used for abstract text summarization of scientific papers, yet.
+Recent studies have shown that neural networks can be used in solving NLP problems. However, models that were mostly considered for this task were Convolutional Neural Networks and Recurrent Neural Networks.
+
+Applying generative adversarial networks to the problems of NLP is a considered to be a complicated task because GANs are only defined for real-valued data, and all NLP is based on discrete values like words, characters, or bytes.
+
+\begin{quote}
+For example, if you output an image with a pixel value of 1.0, you can change that pixel value to 1.0001 on the next step. If you output the word "penguin", you can't change that to "penguin + .001" on the next step, because there is no such word as "penguin + .001". You have to go all the way from "penguin" to "ostrich".\footnote{Ian Goodfellow's answer to the related question on Reddit: \url{https://www.reddit.com/r/MachineLearning/comments/40ldq6/generative_adversarial_networks_for_text/}}
+\end{quote}
+
+However, in their latest paper Fedus, Goodfellow, and Dai\cite{fedus-18} overcome this problem by using Reinforcement Learning (RL) to train the generator while the discriminator is still trained via maximum likelihood and stochastic gradient descent, and use it to fill the gaps in the text.
+ 
+However, this approach has not been used for abstract text summarization of scientific papers, yet.
 
 \section{Problem statement}
 
-The main issue of using generative adversarial networks in Natural Language Processing is connected with the fact that text data is discrete. Why does it make a difference ?
+The main issue of using generative adversarial networks in Natural Language Processing is connected with the fact that text data is discrete. Why does it make a difference?
 Generative Adversarial Network consists of two models: first is generative, which tries to fool with synthetic data the second model - discriminative, that distinguishes the difference between real and generated data. As it is stated in \cite{fedus-18}, GANs have had a lot of success in producing more realistic images than other approaches but they have only seen limited use for text sequences. 
 GAN?s are widely used on images, where generating a new sample requires only to change the density of specific pixels. While working with text it becomes more difficult to tell the generator about how to change the input, thus, according to \cite{liu-17} it is a good choice to build the generator as an agent of reinforcement learning, which takes the raw text as input and predicts the abstractive summarization.
 
@@ -60,22 +72,19 @@ The main hypothesis is whether Generative Adversarial Network can work better th
 
 \section{Background and significance}
 
-Until very recently it was considered impossible to apply GANs to the problems of NLP\footnote{Ian Goodfellow's answer to the related question on Reddit: \url{https://www.reddit.com/r/MachineLearning/comments/40ldq6/generative_adversarial_networks_for_text/}}. 
-
 Allahyari et al.\cite{allahyari-17} make a survey of the most successful text summarization techniques as of July 2017.
+
+This September Li et al. \cite{li-cohn-17} described their submission to the sentiment analysis sub-task of ?Build It, Break It: The Language Edition (BIBI)? where they successfully apply generative approach to the problem of sentiment analysis.
+
+In their paper \textit{Generative Adversarial Network for Abstractive Text Summarization} Liu et al.\cite{liu-17} built an adversarial model that achieved competitive ROUGE scores with the state-of-the-art methods on CNN/Daily Mail dataset. They compare the performance of their approach with three methods, including the abstractive model, the pointer-generator coverage networks, and the abstractive deep reinforced model.
 
 \section{Research design and methods}
 
-\subsection{Overview}
+We will write a script for downloading a given number of papers from arXiv. Those papers will be filtered by their category and publication date.
 
-\subsection{Population and Study Sample}
-
-We will write a script that will download a given number of papers from arXiv. 
-
-\subsection{Sample Size and Selection of Sample}
 \subsection{Data collection}
 
-arXiv provides a RESTful API\footnote{\url{https://arxiv.org/help/api/index}} that allows us to search for papers from a specific category and inside a specific time range. The results are returned as an HTML page which can be easily parsed. By making requests to arXiv and parsing the response we acquire all the necessary information about the paper (paper id, title, authors, date, subjects, and abstract)\footnote{Our first attempts of data scrapping from arXiv:\\ \url{https://github.com/olekscode/arXiv-parsing}}. Then we use the collected list of paper ids to download the PDF files, we extract text from those files and store it in a table together with other variables acquired from arXiv.
+arXiv provides a RESTful API\footnote{\url{https://arxiv.org/help/api/index}} that allows us to search for papers from a specific category and inside a specific time range. The results are returned as an HTML page which can be easily parsed. By making requests to arXiv and parsing the response we acquire all the necessary information about the paper (paper id, title, authors, date, subjects, and abstract)\footnote{Our first attempts of data scrapping from arXiv:\\ \url{https://github.com/MachineLearningUCU/arXiv-parsing}}. Then we use the collected list of paper ids to download the PDF files, we extract text from those files and store it in a table together with other variables acquired from arXiv.
 
 \subsection{Timeframes}
 
